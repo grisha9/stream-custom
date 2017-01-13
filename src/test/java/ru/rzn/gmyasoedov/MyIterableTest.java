@@ -19,6 +19,7 @@ public class MyIterableTest {
         Assert.assertEquals("Operation count is correct", 0, counter.get());
 
         MyIterable<Integer> filtered = iterable.filter(new MyIterable.Predicate<Integer>() {
+            @Override
             public boolean apply(Integer element) {
                 counter.incrementAndGet();
                 return element % 2 == 0;
@@ -28,6 +29,7 @@ public class MyIterableTest {
         Assert.assertEquals("Operation count is correct", 0, counter.get());
 
         MyIterable<Integer> transformed = filtered.transform(new MyIterable.Function<Integer, Integer>() {
+            @Override
             public Integer apply(Integer element) {
                 counter.incrementAndGet();
                 return element / 2;
@@ -37,6 +39,7 @@ public class MyIterableTest {
         Assert.assertEquals("Operation count is correct", 0, counter.get());
 
         int result = transformed.aggregate(0, new MyIterable.Aggregator<Integer, Integer>() {
+            @Override
             public Integer apply(Integer aggregator, Integer element) {
                 counter.incrementAndGet();
                 return aggregator + element;
@@ -58,6 +61,7 @@ public class MyIterableTest {
         Assert.assertEquals("Operation count is correct", 0, counter.get());
 
         MyIterable<Integer> filtered = iterable.filter(new MyIterable.Predicate<Integer>() {
+            @Override
             public boolean apply(Integer element) {
                 counter.incrementAndGet();
                 return element % 2 == 0;
@@ -67,6 +71,7 @@ public class MyIterableTest {
         Assert.assertEquals("Operation count is correct", 0, counter.get());
 
         MyIterable<Integer> transformed = filtered.transform(new MyIterable.Function<Integer, Integer>() {
+            @Override
             public Integer apply(Integer element) {
                 counter.incrementAndGet();
                 return element / 2;
@@ -76,6 +81,7 @@ public class MyIterableTest {
         Assert.assertEquals("Operation count is correct", 0, counter.get());
 
         Integer result = transformed.findFirst(new MyIterable.Predicate<Integer>() {
+            @Override
             public boolean apply(Integer element) {
                 counter.incrementAndGet();
                 return element % 3 == 0;
