@@ -16,18 +16,24 @@ public class MyIterableImpl<E> implements MyIterable<E> {
 
     @Override
     public MyIterable<E> filter(@Nonnull Predicate<E> predicate) {
+        Objects.requireNonNull(predicate);
+
         PredicateIterator<E> predicateIterator = new PredicateIterator<>(iterator, predicate);
         return new MyIterableImpl<>(predicateIterator);
     }
 
     @Override
     public <T> MyIterable<T> transform(@Nonnull Function<E, T> transformer) {
+        Objects.requireNonNull(transformer);
+
         TransformIterator<E, T> transformIterator = new TransformIterator<>(iterator, transformer);
         return new MyIterableImpl<>(transformIterator);
     }
 
     @Override
     public <T> T aggregate(@Nullable T initValue, @Nonnull Aggregator<E, T> aggregator) {
+        Objects.requireNonNull(aggregator);
+
         T result = initValue;
         while (iterator.hasNext()) {
             E next = iterator.next();
@@ -37,8 +43,10 @@ public class MyIterableImpl<E> implements MyIterable<E> {
     }
 
     @Override
-    public SortedSet<E> toSet(@Nonnull Comparator<E> comarator) {
-        TreeSet<E> result = new TreeSet<E>(comarator);
+    public SortedSet<E> toSet(@Nonnull Comparator<E> comparator) {
+        Objects.requireNonNull(comparator);
+
+        TreeSet<E> result = new TreeSet<E>(comparator);
         while (iterator.hasNext()) {
             result.add(iterator.next());
         }
@@ -57,6 +65,8 @@ public class MyIterableImpl<E> implements MyIterable<E> {
     @Nullable
     @Override
     public E findFirst(@Nonnull Predicate<E> predicate) {
+        Objects.requireNonNull(predicate);
+
         while (iterator.hasNext()) {
             E next = iterator.next();
             if (predicate.apply(next)) {
